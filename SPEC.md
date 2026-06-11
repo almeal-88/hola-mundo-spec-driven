@@ -104,4 +104,4 @@ Desarrollar una aplicación web sencilla que muestre el mensaje "Hola Mundo" al 
 
 ### MO-01: Saludo automático con tecla Enter
 
-Permitir que el usuario obtenga el saludo personalizado pulsando la tecla **Enter** dentro del campo de texto, sin necesidad de hacer clic en el botón "Saludar".
+Permitir que el usuario obtenga el saludo personalizado pulsando la tecla **H** dentro del campo de texto, sin necesidad de hacer clic en el botón "Saludar".
