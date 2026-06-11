@@ -59,4 +59,32 @@ describe('Tests de Integración - Interfaz de Usuario (DOM)', () => {
 
     expect(mensaje.textContent).toBe('Hola Mundo');
   });
+
+  test('MO-01: Debe mostrar el saludo al pulsar la tecla H dentro del campo de texto', () => {
+    const input = screen.getByPlaceholderText(/escribe tu nombre/i);
+    const mensaje = document.getElementById('mensaje');
+
+    fireEvent.change(input, { target: { value: 'Ana' } });
+
+    fireEvent.keyDown(input, {
+      key: 'h',
+      code: 'KeyH',
+    });
+
+    expect(mensaje.textContent).toBe('Hola, Ana');
+  });
+
+  test('MO-01: No debe saludar al pulsar una tecla distinta de H', () => {
+    const input = screen.getByPlaceholderText(/escribe tu nombre/i);
+    const mensaje = document.getElementById('mensaje');
+
+    fireEvent.change(input, { target: { value: 'Ana' } });
+
+    fireEvent.keyDown(input, {
+      key: 'a',
+      code: 'KeyA',
+    });
+
+    expect(mensaje.textContent).toBe('Hola Mundo');
+  });
 });
