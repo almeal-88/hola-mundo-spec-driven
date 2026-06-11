@@ -3,18 +3,19 @@ import { fireEvent, screen } from '@testing-library/dom';
 import fs from 'fs';
 import path from 'path';
 
-// Se lee el archivo HTML desde la nueva ruta en src/
+// Se lee el archivo HTML desde la ruta
 const html = fs.readFileSync(path.resolve(__dirname, '../../src/index.html'), 'utf8');
 
 describe('Tests de Integración - Interfaz de Usuario (DOM)', () => {
   
-  beforeEach(() => {
-    // Restablecer el DOM simulado antes de cada test
-    document.documentElement.innerHTML = html.toString();
-    
-    // Resetear módulos e importar la lógica de control del DOM en src/
+  beforeEach(async () => {
+    const bodyContent = html.match(/<body>([\s\S]*)<\/body>/)[1];
+
+    document.body.innerHTML = bodyContent;
+
     vi.resetModules();
-    import('../../src/app.js'); 
+
+    await import('../../src/app.js'); 
   });
 
   test('CA-01 / RF-01: Al cargar la página, el contenedor principal debe decir "Hola Mundo"', () => {
@@ -31,14 +32,20 @@ describe('Tests de Integración - Interfaz de Usuario (DOM)', () => {
     expect(boton).toBeInTheDocument();
   });
 
-  test('CA-02 / RF-04: Flujo completo al escribir un nombre y pulsar el botón', async () => {
+ test('CA-02 / RF-04: Flujo completo al escribir un nombre y pulsar el botón', async () => {
+    // 1. Recuperar los elementos del DOM simulado usando Testing Library y selectores estándar
     const input = screen.getByPlaceholderText(/escribe tu nombre/i);
     const boton = screen.getByRole('button', { name: /saludar/i });
     const mensaje = document.getElementById('mensaje');
 
-    fireEvent.input(input, { target: { value: 'Ana' } });
+    // 2. Simular que el usuario escribe el nombre "Ana"
+    // Usamos 'change' para asegurar que JSDOM actualice el atributo interno .value inmediatamente
+    fireEvent.change(input, { target: { value: 'Ana' } });
+
+    // 3. Simular el clic del usuario en el botón "Saludar"
     fireEvent.click(boton);
 
+    // 4. Verificación (Aserción): El contenido del elemento #mensaje debe haber cambiado
     expect(mensaje.textContent).toBe('Hola, Ana');
   });
 
