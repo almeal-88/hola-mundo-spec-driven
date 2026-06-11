@@ -4,12 +4,29 @@
   "type": "module",
   "description": "Tests unitarios y de integración con Vitest para Hola Mundo",
   "scripts": {
-    "test": "vitest"
+  "test": "vitest run",
+  "test:watch": "vitest"  
   },
   "devDependencies": {
-    "@testing-library/dom": "^10.0.0",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.4.0",
-    "jsdom": "^24.0.0",
-    "vitest": "^1.4.0"
-  }
+    "@testing-library/user-event": "^14.6.1",
+    "jsdom": "^24.1.3",
+    "vitest": "^4.1.8"
+  },
+  "main": "vite.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/almeal-88/hola-mundo-spec-driven.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/almeal-88/hola-mundo-spec-driven/issues"
+  },
+  "homepage": "https://github.com/almeal-88/hola-mundo-spec-driven#readme"
 }
